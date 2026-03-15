@@ -11,18 +11,15 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Compile Vitamin dylib
         run: |
-          # Make sure we are in repo root
           cd $GITHUB_WORKSPACE
-          
-          # Compile the single .m file into a dylib
           clang -dynamiclib VitaminWindow.m -framework Foundation -framework UIKit -o Vitamin.dylib
-          
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
+
+      - name: Upload dylib artifact
+        uses: actions/upload-artifact@v4
         with:
           name: Vitamin-dylib
           path: Vitamin.dylib
