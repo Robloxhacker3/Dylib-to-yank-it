@@ -1,0 +1,24 @@
+name: Build Vitamin dylib
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-dylib:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Compile Vitamin dylib
+        run: |
+          clang -dynamiclib VitaminWindow.m -framework Foundation -framework UIKit -o Vitamin.dylib
+
+      - name: Upload dylib artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: Vitamin-dylib
+          path: Vitamin.dylib
