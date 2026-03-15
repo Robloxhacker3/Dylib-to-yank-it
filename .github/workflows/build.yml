@@ -15,9 +15,13 @@ jobs:
 
       - name: Compile Vitamin dylib
         run: |
+          # Make sure we are in repo root
+          cd $GITHUB_WORKSPACE
+          
+          # Compile the single .m file into a dylib
           clang -dynamiclib VitaminWindow.m -framework Foundation -framework UIKit -o Vitamin.dylib
-
-      - name: Upload dylib artifact
+          
+      - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: Vitamin-dylib
